@@ -1,0 +1,59 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8″>
+    <title>YiRan</title>
+    <link rel="stylesheet" type="text/css" href="{{ static_url("css/style.css")
+    }}">
+    <script type="text/javascript">
+                 window.setInterval(function() {
+                     go_to();
+                 },
+                 100);
+                 function go_to() {
+                     if( document.getElementById("myArticle").style.height < (document.getElementById("myArticle").scrollHeight – 4 ) + "px")
+                                 document.getElementById("myArticle").style.height = document.getElementById("myArticle").scrollHeight + "px";
+      }
+    </script>
+  </head>
+  <body>
+    <div class="main">
+      <img class="logo" src="{{ static_url("img/logo.png") }}">
+      <div class="container">
+        <h1>DustFlight_Log_Analysis_System</h1>
+        <div class="content">
+          <form method="post">
+            <p>Title:</p>
+            <input
+              type="text"
+              class="title"
+              name="title"
+              placeholder="Please Enter Title Here:"
+            />
+            <p>Author:</p>
+            <input
+              type="text"
+              class="author"
+              name="author"
+              placeholder="Please Enter Author Here:"
+            />
+            <p>Content:</p>
+            <textarea
+              type="text"
+              class="article"
+              id="myArticle"
+              name="content"
+              placeholder="Please Enter Content Here:"
+            ></textarea>
+            <br />
+            <br />
+            <input
+              type="submit"
+              class="Article Button Submit"
+              value="Submit"
+            />
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

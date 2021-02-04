@@ -1,0 +1,59 @@
+<!--tornado/template/login.html-->
+{% extends "base.html" %}
+<!--扩展base模板，替换里面的标签部分-->
+{% block title %}Login Page{% end %} {% block body %}
+<div id="container">
+  <form action="/login" method="post">
+    {% module xsrf_form_html() %}
+    <input name="user_name" type="text" placeholder="user_name" required />
+    <input name="user_pass" type="password" placeholder="user_pass" required />
+    <!--submit为html的提交类型，点击后会自动提交对应的表单-->
+    <button type="submit">登入(LOGIN)</button>
+    <!--onclick添加JS里的relocal()功能，this为传入这个HTML的button对象-->
+    <button type="button" onclick="relocal(this)">注册(REGIS)</button>
+  </form>
+  {% end %} {% block js %}
+  <!--JS模板标签-->
+  <script>
+    function relocal(self) {
+      window.location.href = "/regis"; <!--button被点击后，页面跳转到/regist注册页面-->
+    }
+  </script>
+  {% end %} {% block css %}<!--CSS模板标签-->
+  <style>
+    body {
+      color: green;
+      background-color: black;
+      ext-align: center;
+    }
+    #container {
+      width: 128px;
+      height: 256px;
+      margin-top: 64px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    input {
+      width: 128px;
+      height: 64px;
+      margin-top: 2px;
+      border-bottom: dashed green;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      outline: none;
+      color: green;
+      background-color: black;
+    }
+    button {
+      width: 128px;
+      height: 32px;
+      margin-top: 8px;
+      border: solid green;
+      outline: none;
+      color: green;
+      background-color: black;
+    }
+  </style>
+  {% end %}
+</div>

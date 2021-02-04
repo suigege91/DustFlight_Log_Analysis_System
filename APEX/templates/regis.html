@@ -1,0 +1,68 @@
+<!--tornado/template/regis.html-->
+{% extends "base.html"%}
+<!--调用模板，把block标签的部分插入模板中-->
+{% block title %}User_Regis{% end %} //title {% block body %}
+<div id="container">
+  <form action="/regis" method="post">
+    <!--注册Form
+    <!--xsrf 参数，render模块会把生成的xsrf的html替换到这里，在提交Form时
+    这个隐藏的xsrf信息用于Tornado服务端校验，以确保本次提交的Form信息未被黑客篡改。-->
+    {% module xsrf_form_html() %}
+    <input name="user_name" type="text" placeholder="user_name" required />
+    <!--input类型，输入值后 user_name=xxx -->
+    <input name="user_pass" type="password" placeholder="user_pass" required />
+    <!--input类型，输入值后 user_pass=xxx -->
+    <input name="user_mail" type="email" placeholder="user_mail" autocomplete />
+    <input name="user_tell" type="text" placeholder="user_tell" autocomplete />
+    <input
+      name="user_address"
+      type="text"
+      placeholder="user_address"
+      autocomplete
+    />
+    <!--submit为html的提交类型，点击后会自动提交对应的表单Form(包含表单内的输入内容)-->
+    <button type="submit">注册(Regist)</button>
+  </form>
+</div>
+{% end %} {% block js %}
+<script></script>
+{% end %} {% block css %}
+<!--插入到模板里的 css标签-->
+<style>
+  body {
+    /*body是css的html标签选择器，这里对body标签进行文字颜色，背景颜色，对齐方式进行设定*/
+    color: green; /*文字颜色绿色*/
+    background-color: black; /*背景颜色黑色*/
+    ext-align: center; /*文字中间对齐*/
+  }
+  #container {
+    /*#container 是css语言的id选择器*/
+    width: 128px;
+    height: 256px;
+    margin-top: 64px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  input {
+    width: 128px;
+    height: 64px;
+    margin-top: 2px;
+    border-bottom: dashed green;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    outline: none;
+    color: green;
+    background-color: black;
+  }
+  button {
+    width: 128px;
+    height: 32px;
+    margin-top: 8px;
+    border: solid green;
+    outline: none;
+    color: green;
+    background-color: black;
+  }
+</style>
+{% end %}

@@ -1,0 +1,51 @@
+<!--tornado/template/index.html-->
+{% extends "base.html" %} {% block title %}DF_LAS Now!{% end %} {% block body %}
+<h1>Hello {{user_name}}, Welcome to DustFlight_LAS Main Page !</h1>
+<form action="/logout" method="get">
+  <!--用户登出表单Form-->
+  <!--render模块会代入的xsrf隐藏HTML，提交表单时服务端校验用-->
+  {% module xsrf_form_html() %}
+  <!--checkbox默认值value为空，当勾选时value为on即logout=on,服务端只要校验logout=on就可以判断是否要执行登出-->
+  <input name="logout" type="checkbox" />
+  <!--submit为html的提交类型，点击后会自动提交对应的表单-->
+  <input type="submit" value="Logout" />
+</form>
+
+<!--websocket 测试区域-->
+<div id="msgPanel"></div>
+<textarea id="msgInput" row="20" placeholder="Message"></textarea>
+<button type="button" onclick="send()">发送(Send)</button>
+{% end %} {% block js %}
+<script>
+  var ws = new WebSocket("ws://127.0.0.1:1010/ws");
+  ws.onopen = function (e) {
+    console.log("ws 已连接！");
+  };
+
+  ws.onclose = function (e) {
+    console.log("ws 已关闭！");
+  };
+
+  function send() {
+    var msg = $("#msgInput").val();
+    sendMsg(msg);
+    ws.onmessage = function (e) {
+      console.log(e.data);
+      var msgHtml = "<div>" + e.data + "</div>";
+      console.log(msgHtml);
+      $("#msgPanel").append(msgHtml);
+    };
+  }
+
+  function sendMsg(msg) {
+    ws.send(
+      JSON.stringify({
+        type: "message",
+        user: "{{ user_name }}",
+        msg: msg,
+      })
+    );
+    $("#msgInput").val("");
+  }
+</script>
+{% end %}
